@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Result Portal</title>
+</head>
+<body>
+    <style>
+        /* styles.css */
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f4f4f4;
+}
+
+.container {
+    text-align: center;
+    width: 80%;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.result-card {
+    display: none;
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    background: linear-gradient(45deg, #ff001f, #3115ff);
+    color: #000000;
+}
+
+.result-card img {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    margin-bottom: 20px;
+}
+
+.result-card h2 {
+    margin: 0;
+    padding: 0;
+    font-family: georgia;
+}
+
+.result-card .subjects {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.result-card .subjects li {
+    padding: 10px;
+    background-color: #fff;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+h1 {
+    font-family: georgia;
+}
+    </style>
+    <div class="container">
+        <h1>Result Portal</h1>
+        <input type="text" id="roll-number-input" placeholder="Enter Roll Number" />
+        <button onclick="searchResult()">Search Result</button>
+        <div id="result-output" class="result-card"></div>
+    </div>
+    <script>
+        // script.js
+const students = [
+  {
+    RollNumber: "701931N-0262",
+    Name: "Rana Biswas",
+    Picture: "rana.jpg", // Replace with actual URL
+    Marks: {
+      Bengali: 85,
+      English: 90,
+      Math: 95,
+      PhysicalScience: 88,
+      LifeScience: 92,
+      History: 80,
+      Geography: 85
+    }
+  },
+  {
+    RollNumber: "701931N-0263",
+    Name: "Amit Kumar",
+    Picture: "https://via.placeholder.com/150", // Replace with actual URL
+    Marks: {
+      Bengali: 78,
+      English: 82,
+      Math: 89,
+      PhysicalScience: 84,
+      LifeScience: 80,
+      History: 75,
+      Geography: 80
+    }
+  },
+  {
+    RollNumber: "701931N-0264",
+    Name: "Priya Sharma",
+    Picture: "https://via.placeholder.com/150", // Replace with actual URL
+    Marks: {
+      Bengali: 88,
+      English: 85,
+      Math: 90,
+      PhysicalScience: 87,
+      LifeScience: 89,
+      History: 82,
+      Geography: 88
+    }
+  }
+];
+
+function searchResult() {
+    const rollNumberInput = document.getElementById('roll-number-input').value.trim();
+    const resultOutput = document.getElementById('result-output');
+
+    if (rollNumberInput) {
+        const student = students.find(s => s.RollNumber === rollNumberInput);
+
+        if (student) {
+            const totalMarks = Object.values(student.Marks).reduce((total, marks) => total + marks, 0);
+            
+            resultOutput.innerHTML = `
+                <img src="${student.Picture}" alt="${student.Name}">
+                <h2>${student.Name}</h2>
+                <ul class="subjects">
+                    <li><strong>Bengali:</strong> ${student.Marks.Bengali}</li>
+                    <li><strong>English:</strong> ${student.Marks.English}</li>
+                    <li><strong>Math:</strong> ${student.Marks.Math}</li>
+                    <li><strong>Physical Science:</strong> ${student.Marks.PhysicalScience}</li>
+                    <li><strong>Life Science:</strong> ${student.Marks.LifeScience}</li>
+                    <li><strong>History:</strong> ${student.Marks.History}</li>
+                    <li><strong>Geography:</strong> ${student.Marks.Geography}</li>
+                </ul>
+                <h3 style="font-family: georgia;"><i>Total Marks: ${totalMarks}</i></h3>
+            `;
+            resultOutput.style.display = 'block';
+        } else {
+            resultOutput.innerHTML = 'No results found for the given roll number.';
+            resultOutput.style.display = 'block';
+        }
+    } else {
+        resultOutput.innerHTML = 'Please enter a roll number.';
+        resultOutput.style.display = 'block';
+    }
+}
+
+    </script>
+</body>
+</html>
